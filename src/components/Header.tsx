@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { connectInjectedWallet } from '../lib/web3'
 
 export function Header() {
@@ -12,11 +12,21 @@ export function Header() {
   const openMenu = () => setShowMenu(true)
   const closeMenu = () => setShowMenu(false)
 
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('connectedAddress')
+      if (saved) setAddress(saved)
+    } catch (e) {
+      // ignore
+    }
+  }, [])
+
   const handleConnectInjected = async (type: 'metamask' | 'rabby') => {
     try {
       setConnecting(true)
       const addr = await connectInjectedWallet(type)
       setAddress(addr)
+      try { localStorage.setItem('connectedAddress', addr ?? '') } catch (e) {}
       setShowMenu(false)
     } catch (err: any) {
       alert(err?.message || 'Failed to connect')
@@ -32,6 +42,7 @@ export function Header() {
       const { connectWalletConnect } = await import('../lib/web3')
       const addr = await connectWalletConnect()
       setAddress(addr ?? null)
+      try { localStorage.setItem('connectedAddress', addr ?? '') } catch (e) {}
       setShowMenu(false)
     } catch (err: any) {
       console.error(err)
@@ -68,7 +79,7 @@ export function Header() {
 
           <div>
             {address ? (
-              <button className="px-4 py-2 bg-green-600 rounded-lg text-white font-semibold">
+              <button onClick={openMenu} className="px-4 py-2 bg-green-600 rounded-lg text-white font-semibold">
                 {address.slice(0, 6)}...{address.slice(-4)}
               </button>
             ) : (
@@ -84,7 +95,23 @@ export function Header() {
         <div className="fixed inset-0 z-60 flex items-center justify-center bg-black/50">
           <div className="bg-white rounded-lg p-6 w-full max-w-sm">
             <h3 className="text-lg font-semibold mb-4">Connect Wallet</h3>
-            <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-3">
+              {address && (
+                <div className="mb-2">
+                  <div className="text-sm text-gray-600 mb-2">Connected: {address.slice(0,6)}...{address.slice(-4)}</div>
+                  <button
+                    onClick={async () => {
+                      const mod = await import('../lib/web3')
+                      mod.disconnectWallet()
+                      setAddress(null)
+                      setShowMenu(false)
+                    }}
+                    className="w-full text-left px-4 py-2 bg-red-100 rounded text-red-700"
+                  >
+                    Disconnect
+                  </button>
+                </div>
+              )}
               <button onClick={() => handleConnectInjected('metamask')} className="w-full text-left px-4 py-3 border rounded hover:bg-gray-50">
                 MetaMask
               </button>

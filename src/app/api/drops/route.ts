@@ -23,7 +23,7 @@ const mockDrops = [
 ]
 
 const NANSEN_API_BASE = process.env.NANSEN_API_BASE || 'https://api.nansen.ai'
-const NANSEN_API_KEY = process.env.NANSEN_API_KEY || process.env.NEXT_PUBLIC_NANSEN_API_KEY || '[REDACTED_NANSEN_API_KEY]'
+const NANSEN_API_KEY = process.env.NANSEN_API_KEY || process.env.NEXT_PUBLIC_NANSEN_API_KEY
 
 export async function GET() {
   try {

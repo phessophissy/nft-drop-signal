@@ -91,6 +91,36 @@ export async function connectWalletConnect(projectId?: string) {
   }
 }
 
+export function disconnectWallet() {
+  try {
+    if (typeof window !== 'undefined') {
+      const provider: any = (window as any).ethereum
+      // If it's a WalletConnect provider it may expose a `disconnect` method
+      if (provider && typeof provider.disconnect === 'function') {
+        try {
+          provider.disconnect()
+        } catch (e) {
+          // ignore
+        }
+      }
+      try {
+        // Clear injected provider reference
+        delete (window as any).ethereum
+      } catch (e) {
+        (window as any).ethereum = undefined
+      }
+      // Clear persisted address
+      try {
+        localStorage.removeItem('connectedAddress')
+      } catch (e) {
+        // ignore
+      }
+    }
+  } catch (error) {
+    console.error('disconnectWallet error:', error)
+  }
+}
+
 export async function getContractNFTFloorPrice(): Promise<string | null> {
   try {
     // This would integrate with NFT pricing APIs like:

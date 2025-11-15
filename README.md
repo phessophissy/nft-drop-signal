@@ -72,6 +72,27 @@ This miniApp integrates with Farcaster's Frames API to:
 ## License
 
 MIT
+
+## WalletConnect Setup (optional)
+
+To enable WalletConnect QR pairing in the browser, install the WalletConnect provider and optionally provide a project id:
+
+1. Install the package:
+
+```bash
+npm install @walletconnect/ethereum-provider
+```
+
+2. (Optional) Create a WalletConnect Cloud project and set the `projectId`.
+
+- Locally: add `NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID=your_project_id` to `.env.local`
+- On Vercel: add `NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID` to the project environment variables
+
+3. Restart the app. The "WalletConnect (QR)" option in the Connect Wallet modal will open the QR/pairing UI.
+
+Notes:
+- The app dynamically imports `@walletconnect/ethereum-provider` at runtime — the provider is installed and used only when the WalletConnect button is pressed.
+- If you prefer the provider to always be bundled, add it to `package.json` dependencies (already included in this repo) and rebuild.
 >>>>>>> 1426f58 (Initial commit: NFT Drop Signal miniApp)
 =======
 # NFT Drop Signal
