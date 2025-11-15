@@ -1,0 +1,16 @@
+{
+  "name": "NFT Drop Signal",
+  "short_description": "Real-time NFT drop signals",
+  "description": "NFT Drop Signal aggregates and surfaces new NFT drops in near real-time, with collection links and floor price context.",
+  "url": "https://nft-drop-signal-b9xrb2dfw-phessophissys-projects.vercel.app",
+  "icons": [
+    "https://nft-drop-signal-b9xrb2dfw-phessophissys-projects.vercel.app/logo.png",
+    "https://nft-drop-signal-b9xrb2dfw-phessophissys-projects.vercel.app/logo.svg",
+    "https://nft-drop-signal-b9xrb2dfw-phessophissys-projects.vercel.app/favicon.ico",
+    "https://nft-drop-signal-b9xrb2dfw-phessophissys-projects.vercel.app/logo192.png"
+  ],
+  "author": {
+    "name": "NFT Drop Signal",
+    "url": "https://nft-drop-signal-b9xrb2dfw-phessophissys-projects.vercel.app"
+  }
+}
