@@ -16,6 +16,9 @@ export async function GET() {
         'NFT Drop Signal aggregates and surfaces new NFT drops in near real-time, with collection links and floor price context.',
       url: siteUrl,
       icons: [
+        // primary logo (use logo.png if present), fallback to svg and favicon
+        `${siteUrl}/logo.png`,
+        `${siteUrl}/logo.svg`,
         `${siteUrl}/favicon.ico`,
         `${siteUrl}/logo192.png`
       ],
